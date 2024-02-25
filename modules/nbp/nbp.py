@@ -1,8 +1,9 @@
 import requests
+from typing import Dict
 
 baseURL = "https://api.nbp.pl/api/"
 
-def getExchangeRates(year, currency='usd'):
+def getExchangeRates(year: int, currency: str = 'usd') -> Dict[str, float]:
     """
     Fetches exchange rates from the NBP API for a specific year and currency.
 
@@ -11,7 +12,7 @@ def getExchangeRates(year, currency='usd'):
         currency (str, optional): The currency code for which to fetch exchange rates. Defaults to 'usd'.
 
     Returns:
-        dict: A dictionary mapping dates to exchange rate values for the specified year and currency.
+        Dict[str, float]: A dictionary mapping dates to exchange rate values for the specified year and currency.
             The keys are strings representing dates in the format 'YYYY-MM-DD', and the values are floats.
 
     Raises:
@@ -20,7 +21,7 @@ def getExchangeRates(year, currency='usd'):
 
     Example:
         >>> nbp.getExchangeRates(2023, 'eur')
-        {'2023-01-01':  4.50, '2023-01-02':  4.55, ...}
+        {'2023-01-01':   4.50, '2023-01-02':   4.55, ...}
     """
     endpoint = f"exchangerates/rates/a/{currency}/"
     try:

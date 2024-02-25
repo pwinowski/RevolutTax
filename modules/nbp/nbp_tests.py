@@ -1,7 +1,7 @@
 import unittest
 from unittest.mock import patch
 import requests
-import modules.nbp.nbp as nbp
+import nbp as nbp
 
 class TestGetExchangeRates(unittest.TestCase):
 
