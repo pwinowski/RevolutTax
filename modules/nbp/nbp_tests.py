@@ -2,7 +2,7 @@ import datetime
 import unittest
 from unittest.mock import patch
 import requests
-import nbp as nbp
+import nbp
 
 class TestGetExchangeRates(unittest.TestCase):
 

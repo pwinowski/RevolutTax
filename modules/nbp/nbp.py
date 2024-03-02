@@ -1,11 +1,9 @@
 import requests
 from typing import Dict
 from decimal import Decimal
+from datetime import datetime
 
 baseURL = "https://api.nbp.pl/api/"
-
-
-from datetime import datetime
 
 def getExchangeRates(year: int, currency: str = 'usd') -> Dict[datetime, Decimal]:
     """
