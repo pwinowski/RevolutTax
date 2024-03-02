@@ -5,7 +5,7 @@ from datetime import datetime
 
 baseURL = "https://api.nbp.pl/api/"
 
-def getExchangeRates(year: int, currency: str = 'usd') -> Dict[datetime, Decimal]:
+def get_exchange_rates(year: int, currency: str = 'usd') -> Dict[datetime, Decimal]:
     """
     Fetches exchange rates from the NBP API for a specific year and currency.
 

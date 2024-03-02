@@ -19,7 +19,7 @@ class TestGetExchangeRates(unittest.TestCase):
         mock_get.return_value.json.return_value = mock_response
 
         # Call the function with the expected parameters
-        result = nbp.getExchangeRates(2022, 'usd')
+        result = nbp.get_exchange_rates(2022, 'usd')
 
         # Assert that the function returned the expected data
         self.assertEqual(result, {datetime.datetime(2022, 1, 1):  4.12, datetime.datetime(2022, 1, 2):  4.13})
@@ -32,7 +32,7 @@ class TestGetExchangeRates(unittest.TestCase):
 
         # Call the function with the expected parameters
         with self.assertRaises(requests.HTTPError):
-            nbp.getExchangeRates(2022, 'usd')
+            nbp.get_exchange_rates(2022, 'usd')
 
 if __name__ == '__main__':
     unittest.main()
