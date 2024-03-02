@@ -26,6 +26,23 @@ class CalculationTests(unittest.TestCase):
         result = calc.usd_to_pln(self.transactions, self.rates)
         self.assertEqual(result, self.expected_pln_transactions)
 
+    def test_usd_to_pln_no_rate_found(self):
+        # Sample transactions in USD with a date for which no rate is provided
+        transactions = {
+            datetime(2023, 1, 1): Decimal('100.00'),
+            datetime(2023, 1, 2): Decimal('200.00'),
+            datetime(2023, 1, 3): Decimal('300.00'), # No rate provided for this date
+        }
+        # Sample exchange rates without a rate for the third date
+        rates = {
+            datetime(2023, 1, 1): Decimal('4.00'),
+            datetime(2023, 1, 2): Decimal('4.50'),
+        }
+    
+        # Expect a KeyError to be raised because there is no rate for the third date
+        with self.assertRaises(KeyError):
+            calc.usd_to_pln(transactions, rates)
+
     def test_pnl_per_year(self):
         # Sample transactions
         transactions = {

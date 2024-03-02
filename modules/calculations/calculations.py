@@ -12,15 +12,20 @@ def usd_to_pln(transactions: Dict[datetime, Decimal], rates: Dict[datetime, Deci
 
     Returns:
         Dict[datetime, Decimal]: A dictionary containing transactions in PLN.
+
+    Raises:
+        KeyError: If a rate for a given date is not found.
     """
-    
+
     pln_transactions = {}
-    
+
     for date, amount in transactions.items():
+        if date not in rates:
+            raise KeyError(f"No rate found for date: {date}")
         rate = rates[date]
         pln_amount = amount * rate
         pln_transactions[date] = pln_amount
-        
+
     return pln_transactions
 
 
