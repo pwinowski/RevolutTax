@@ -34,5 +34,25 @@ class TestGetExchangeRates(unittest.TestCase):
         with self.assertRaises(requests.HTTPError):
             nbp.get_exchange_rates(2022, 'usd')
 
+    def test_getExchangeRatesForSpecificDates_e2e(self):
+        # Define the dates for which to fetch exchange rates
+        dates = [datetime.datetime(2022, 1, 4),
+                 datetime.datetime(2023, 3, 5),
+                 datetime.datetime(2023, 3, 7)]
+        currency = 'usd'
+
+        # Call the function with the specific dates
+        result = nbp.get_exchange_rates_for_specific_dates(dates, currency)
+
+        # Print the results
+        print(f"Exchange rates for {currency} on:")
+        for date, rate in result.items():
+            print(f"{date}: {rate}")
+
+        # Assert that the HTTP request was successful
+        # Since we're making a real API call, we can't directly assert the status code.
+        # However, if the function doesn't raise an exception, we can assume the request was successful.
+        self.assertTrue(result)
+
 if __name__ == '__main__':
     unittest.main()
