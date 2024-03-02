@@ -1,8 +1,9 @@
 import csv
 from decimal import Decimal
 from typing import Dict
+from datetime import datetime
 
-def parse_pnl_csv(file_path: str) -> Dict[str, Decimal]:
+def parse_pnl_csv(file_path: str) -> Dict[datetime, Decimal]:
     """
     Parses a CSV file containing profit and loss data and aggregates the realized PnL values by date.
 
@@ -10,22 +11,18 @@ def parse_pnl_csv(file_path: str) -> Dict[str, Decimal]:
         file_path (str): The path to the CSV file to parse.
 
     Returns:
-        Dict[str, Decimal]: A dictionary where keys are sell dates (as strings) and values are the total realized PnL for each date.
+        Dict[datetime, Decimal]: A dictionary where keys are sell dates (as datetime objects) and values are the total realized PnL for each date.
 
     Raises:
         FileNotFoundError: If the specified file does not exist.
         KeyError: If the CSV file does not contain the expected columns ('Date sold' and 'Realised PnL').
         ValueError: If the 'Realised PnL' value cannot be converted to a Decimal.
-
-    Example usage:
-        pnl_data = parse_pnl_csv('/path/to/your/csvfile.csv')
-        print(pnl_data)  # Output might look like: {'2021-06-28': Decimal('-0.77'), ...}
     """
-    realised_pnls: Dict[str, Decimal] = {}
+    realised_pnls: Dict[datetime, Decimal] = {}
     with open(file_path, newline='') as csvfile:
         reader = csv.DictReader(csvfile)
         for row in reader:
-            date_sold: str = row['Date sold']
+            date_sold: datetime = datetime.strptime(row['Date sold'], '%Y-%m-%d')
             realised_pnl: Decimal = Decimal(row['Realised PnL'])
             if date_sold not in realised_pnls:
                 realised_pnls[date_sold] = realised_pnl

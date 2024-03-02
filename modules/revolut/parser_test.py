@@ -1,6 +1,6 @@
+import datetime
 import unittest
 from decimal import Decimal
-from typing import Dict
 from csv_parser import parse_pnl_csv
 
 class TestCSVParser(unittest.TestCase):
@@ -10,9 +10,9 @@ class TestCSVParser(unittest.TestCase):
 
     def test_parse_pnl_csv(self):
         expected_output = {
-            '2021-06-28': Decimal('-0.77'),
-            '2021-08-03': Decimal('23.21'),
-            '2021-11-08': Decimal('1.46'),
+            datetime.datetime(2021, 6, 28): Decimal('-0.77'),
+            datetime.datetime(2021, 8, 3): Decimal('23.21'),
+            datetime.datetime(2021, 11, 8): Decimal('1.46'),
         }
         actual_output = parse_pnl_csv(self.test_file_path)
         

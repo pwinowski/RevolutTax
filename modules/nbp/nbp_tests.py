@@ -1,3 +1,4 @@
+import datetime
 import unittest
 from unittest.mock import patch
 import requests
@@ -21,12 +22,12 @@ class TestGetExchangeRates(unittest.TestCase):
         result = nbp.getExchangeRates(2022, 'usd')
 
         # Assert that the function returned the expected data
-        self.assertEqual(result, {'2022-01-01':  4.12, '2022-01-02':  4.13})
-
+        self.assertEqual(result, {datetime.datetime(2022, 1, 1):  4.12, datetime.datetime(2022, 1, 2):  4.13})
+        
     @patch('requests.get')
     def test_getExchangeRates_failure(self, mock_get):
         # Mock the response from the API
-        mock_get.return_value.status_code =  404
+        mock_get.return_value.status_code = 404
         mock_get.return_value.raise_for_status.side_effect = requests.HTTPError()
 
         # Call the function with the expected parameters
